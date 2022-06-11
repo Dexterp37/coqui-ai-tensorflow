@@ -24,3 +24,17 @@ tf_workspace0()
 
 load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
 boost_deps()
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "emsdk",
+    sha256 = "1ca0ff918d476c55707bb99bc0452be28ac5fb8f22a9260a8aae8a38d1bc0e27",
+    strip_prefix = "emsdk-0ea8f8a8707070e9a7c83fbb4a3065683bcf1799/bazel",
+    url = "https://github.com/emscripten-core/emsdk/archive/0ea8f8a8707070e9a7c83fbb4a3065683bcf1799.tar.gz",
+)
+
+load("@emsdk//:deps.bzl", emsdk_deps = "deps")
+emsdk_deps()
+
+load("@emsdk//:emscripten_deps.bzl", emsdk_emscripten_deps = "emscripten_deps")
+emsdk_emscripten_deps(emscripten_version = "3.1.7")
